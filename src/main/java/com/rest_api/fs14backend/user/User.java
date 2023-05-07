@@ -1,11 +1,13 @@
 //package com.rest_api.fs14backend.user;
 //
 //import com.fasterxml.jackson.annotation.JsonProperty;
+//import com.rest_api.fs14backend.book.Book;
 //import jakarta.persistence.*;
 //import lombok.Data;
 //import lombok.NoArgsConstructor;
 //import org.hibernate.annotations.UuidGenerator;
 //
+//import java.util.List;
 //import java.util.UUID;
 //
 //@Entity(name = "user")
@@ -23,6 +25,8 @@
 //
 //  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 //  private String password;
+//
+//  private List<Book> borrowedBooks;
 //
 //  public User(String username, String password){
 //    this.username = username;

@@ -21,4 +21,5 @@ public class BookDTO {
   private String authorName;
   private LocalDate authorDob;
   private String authorDescription;
+  private String categoryName;
 }

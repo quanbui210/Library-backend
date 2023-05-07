@@ -1,6 +1,5 @@
 package com.rest_api.fs14backend.author;
 
-import com.rest_api.fs14backend.author.Author;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,6 +29,8 @@ public class AuthorService {
     for (Author author : authorList) {
       if (newAuthor.getName().equals(author.getName())) {
         throw new IllegalStateException("Author " + newAuthor.getName() +  " already exist");
+      } else {
+        authorRepository.save(newAuthor);
       }
     }
   }

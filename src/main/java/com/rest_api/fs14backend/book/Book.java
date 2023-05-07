@@ -44,7 +44,7 @@ public class Book {
   @Column(nullable = true)
   private String publishers;
 
-  @ManyToOne(optional = false)
+  @ManyToOne(optional = true)
   @JoinColumn(name = "author_id")
   private Author author;
 
@@ -53,7 +53,7 @@ public class Book {
     AVAILABLE
   }
 
-  @ManyToOne( optional = false)
+  @ManyToOne( optional = true)
   @JoinColumn(name = "category_id")
   private Category category;
 

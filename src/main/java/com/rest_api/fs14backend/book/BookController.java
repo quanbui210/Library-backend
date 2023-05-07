@@ -42,24 +42,35 @@ public class BookController {
   public void deleteBook(@PathVariable Long isbn) {
     bookService.deleteBook(isbn);
   }
-  @PostMapping("/")
+  @PostMapping
   public Book createOne(@RequestBody BookDTO bookDTO) {
     UUID categoryId = bookDTO.getCategoryId();
-    Category category = categoryService.findById(categoryId);
     UUID authorId = bookDTO.getAuthorId();
     Author author;
+    Category category;
     if (authorId == null) { // If authorId is not provided in the request, create a new author
       author = new Author(bookDTO.getAuthorName(), bookDTO.getAuthorDob(), bookDTO.getAuthorDescription());
       authorService.AddAuthor(author);
     } else {
       author = authorService.getAuthorById(authorId);
     }
-    Book book = bookMapper.newBook(bookDTO, category, author);
+    if (categoryId == null) {
+      category = new Category(bookDTO.getCategoryName());
+      categoryService.createOne(category);
+    } else {
+      category = categoryService.findById(categoryId);
+    }
+    Book book = new Book(
+            bookDTO.getISBN(),
+            bookDTO.getTitle(),
+            bookDTO.getPublishedDate(),
+            bookDTO.getDescription(),
+            Book.Status.AVAILABLE,
+            bookDTO.getPublishers(),
+            category,
+            authorId != null ? author : null
+    );
     return bookService.createOne(book);
-  }
-  @PostMapping
-  public void createOne(@RequestBody Book book) {
-    bookService.addOneBook(book);
   }
   @PutMapping(value = "/{isbn}")
   public void updateBook(@PathVariable Long isbn, @RequestBody Book book) {
