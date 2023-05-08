@@ -14,7 +14,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping("api/v1/books")
 public class BookController {
-  private final BookService bookService;
+  @Autowired
+  private BookService bookService;
   @Autowired
   private CategoryService categoryService;
   @Autowired
@@ -22,10 +23,6 @@ public class BookController {
 
   @Autowired
   private BookMapper bookMapper;
-
-  public BookController( BookService bookService) {
-    this.bookService = bookService;
-  }
 
 
   @GetMapping
@@ -49,8 +46,8 @@ public class BookController {
     Author author;
     Category category;
     if (authorId == null) { // If authorId is not provided in the request, create a new author
-      author = new Author(bookDTO.getAuthorName(), bookDTO.getAuthorDob(), bookDTO.getAuthorDescription());
-      authorService.AddAuthor(author);
+      author = new Author(bookDTO.getAuthorName(), bookDTO.getAuthorDescription());
+      authorService.addAuthor(author);
     } else {
       author = authorService.getAuthorById(authorId);
     }

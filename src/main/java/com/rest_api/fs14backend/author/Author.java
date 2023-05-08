@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -26,24 +25,17 @@ public class Author {
   private String name;
 
   @Column(nullable = true)
-  private LocalDate dob;
-
-  @Column(nullable = true)
   private String description;
 
   @OneToMany(mappedBy = "author")
   @JsonIgnoreProperties("author")
-  private List<Book> books = new ArrayList<>();
 
-  public Author(String name, LocalDate dob, String description) {
-    this.name = name;
-    this.dob = dob;
-    this.description = description;
-  }
+  private List<Book> books = new ArrayList<>();
 
   public Author(String name, String description) {
     this.name = name;
     this.description = description;
   }
+
 }
 

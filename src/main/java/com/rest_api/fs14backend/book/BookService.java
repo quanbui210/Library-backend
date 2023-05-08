@@ -1,5 +1,7 @@
 package com.rest_api.fs14backend.book;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -7,12 +9,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class BookService {
-  private final BookRepository bookRepository;
-
-  public BookService(BookRepository bookRepository) {
-    this.bookRepository = bookRepository;
-  }
+  @Autowired
+  private BookRepository bookRepository;
 
   public List<Book> getAllBooks() {
     return bookRepository.findAll();
@@ -45,6 +45,8 @@ public class BookService {
       bookToEdit.get().setDescription(newBook.getDescription());
       bookToEdit.get().setTitle(newBook.getTitle());
       bookToEdit.get().setPublishers(newBook.getPublishers());
+      bookToEdit.get().setAuthor(newBook.getAuthor());
+      bookToEdit.get().setCategory(newBook.getCategory());
     }
   }
 }

@@ -6,16 +6,9 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-//@Mapper(componentModel = "spring")
 public class AuthorService {
   private AuthorRepository authorRepository;
 //  private final AuthorMapper authorMapper;
-
-  public AuthorService(AuthorRepository authorRepository) {
-    this.authorRepository = authorRepository;
-//    this.authorMapper = authorMapper;
-  }
-
   public List<Author> getAllAuthors() {
     List<Author> authors = authorRepository.findAll();
 //  return authorMapper.toAuthorDTOList(authors);
@@ -24,7 +17,7 @@ public class AuthorService {
   public Author getAuthorById (UUID id) {
     return authorRepository.findAuthorById(id);
   }
-  public void AddAuthor(Author newAuthor) {
+  public void addAuthor(Author newAuthor) {
     List<Author> authorList = authorRepository.findAll();
     for (Author author : authorList) {
       if (newAuthor.getName().equals(author.getName())) {
