@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @NoArgsConstructor
 @Data
-public class BookDTO {
+public class BookResponse {
   private UUID categoryId;
   private UUID authorId;
   private long ISBN;

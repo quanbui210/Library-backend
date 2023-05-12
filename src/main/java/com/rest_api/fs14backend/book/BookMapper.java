@@ -1,18 +1,19 @@
 package com.rest_api.fs14backend.book;
 
-import com.rest_api.fs14backend.author.Author;
-import com.rest_api.fs14backend.category.Category;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-@Component
-public class BookMapper {
-  public Book newBook(BookDTO book, Category category, Author author){
-    return new Book(book.getISBN(),
-            book.getTitle(),
-            book.getPublishedDate(),
-            book.getDescription(),
-            book.getStatus(),
-            book.getPublishers(),
-            category, author);
-  }
+import java.util.List;
+
+@Mapper(componentModel = "spring")
+public interface BookMapper {
+  @Mapping(source = "book.author.name", target = "authorName")
+  @Mapping(source = "book.category.name", target = "categoryName")
+  BookResponse toBookResponse(Book book);
+
+  @Mapping(source = "book.author.name", target = "authorName")
+  @Mapping(source = "book.category.name", target = "categoryName")
+  List<BookResponse> toListBookResponse(List<Book> bookList);
+
+  Book toBookEntity(BookRequest bookRequest);
 }

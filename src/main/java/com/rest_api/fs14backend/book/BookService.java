@@ -1,5 +1,9 @@
 package com.rest_api.fs14backend.book;
 
+import com.rest_api.fs14backend.author.Author;
+import com.rest_api.fs14backend.author.AuthorRepository;
+import com.rest_api.fs14backend.category.Category;
+import com.rest_api.fs14backend.category.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +17,9 @@ import java.util.Optional;
 public class BookService {
   @Autowired
   private BookRepository bookRepository;
+  private final AuthorRepository authorRepository;
+  private final CategoryRepository categoryRepository;
+  private BookMapper bookMapper;
 
   public List<Book> getAllBooks() {
     return bookRepository.findAll();
@@ -21,8 +28,13 @@ public class BookService {
     bookRepository.save(book);
   }
 
-  public Book createOne(Book book) {
-    return bookRepository.save(book);
+  public BookResponse createOne(BookRequest bookRequest) {
+    Author author = authorRepository.findAuthorById(bookRequest.getAuthorId());
+    Category category = categoryRepository.findById(bookRequest.getCategoryId()).get();
+    Book book = bookMapper.toBookEntity(bookRequest);
+    book.setCategory(category);
+    book.setAuthor(author);
+    return bookMapper.toBookResponse(book);
   }
 
   public Optional<Book> getBookById(Long isbn) {
