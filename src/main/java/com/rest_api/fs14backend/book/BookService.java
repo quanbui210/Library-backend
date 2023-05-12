@@ -4,7 +4,8 @@ import com.rest_api.fs14backend.author.Author;
 import com.rest_api.fs14backend.author.AuthorRepository;
 import com.rest_api.fs14backend.category.Category;
 import com.rest_api.fs14backend.category.CategoryRepository;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,12 +14,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class BookService {
   @Autowired
   private BookRepository bookRepository;
-  private final AuthorRepository authorRepository;
-  private final CategoryRepository categoryRepository;
+  @Autowired
+  private AuthorRepository authorRepository;
+  @Autowired
+  private CategoryRepository categoryRepository;
   private BookMapper bookMapper;
 
   public List<Book> getAllBooks() {

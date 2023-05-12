@@ -25,10 +25,9 @@
 //    authorRepository.save(author3);
 //    authorRepository.save(author4);
 //    return args -> {
-//      Book book2 = new Book(
-//              123433, "Book2", null, "This is Book2",
-//              Book.Status.AVAILABLE, "Publisher2", category1, author1
-//      );
+////      BookRequest book2 = new BookRequest(
+////             12343, "BookREQ", null, "This is Book", Book.Status.AVAILABLE, "Me", author1.getId(), category1.getId()
+////      );
 //      Book book3 = new Book(
 //              123432, "Book3", null, "This is Book3",
 //              Book.Status.AVAILABLE, "Publisher3", category1, author2
@@ -42,7 +41,7 @@
 //              Book.Status.AVAILABLE, "Publisher5", category1, author4
 //      );
 //      repository.saveAll(
-//              List.of(book2, book3, book4, book5)
+//              List.of( book3, book4, book5)
 //      );
 //    };
 //  }

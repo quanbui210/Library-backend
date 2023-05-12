@@ -18,9 +18,6 @@ public class BookController {
   @Autowired
   private AuthorService authorService;
 
-  @Autowired
-  private BookMapper bookMapper;
-
 
   @GetMapping
   public List<Book> getBooks() {
