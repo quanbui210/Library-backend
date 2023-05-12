@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @NoArgsConstructor
@@ -23,10 +22,13 @@ public class BookService {
   private AuthorRepository authorRepository;
   @Autowired
   private CategoryRepository categoryRepository;
+ @Autowired
   private BookMapper bookMapper;
 
-  public List<Book> getAllBooks() {
-    return bookRepository.findAll();
+  public List<BookResponse> getAllBooks() {
+    List<Book> bookList = bookRepository.findAll();
+    List<BookResponse> bookResponseList = bookMapper.toListBookResponse(bookList);
+    return bookResponseList;
   }
   public void addOneBook(Book book) {
     bookRepository.save(book);
@@ -38,31 +40,31 @@ public class BookService {
     Book book = bookMapper.toBookEntity(bookRequest);
     book.setCategory(category);
     book.setAuthor(author);
+    bookRepository.save(book);
     return bookMapper.toBookResponse(book);
   }
 
-  public Optional<Book> getBookById(Long isbn) {
-    return bookRepository.findBookByISBN(isbn);
+  public BookResponse getBookById(Long isbn) {
+    Book book = bookRepository.findBookByISBN(isbn);
+    BookResponse bookResponse = bookMapper.toBookResponse(book);
+    return bookResponse;
   }
 
   public void deleteBook(Long isbn) {
-    Optional<Book> bookToDelete = bookRepository.findBookByISBN(isbn);
-    if (bookToDelete.isPresent()) {
-      bookRepository.delete(bookToDelete.get());
-    } else {
-      throw new IllegalStateException("Book with " + isbn + " not found");
-    }
+    Book bookToDelete = bookRepository.findBookByISBN(isbn);
+    bookRepository.delete(bookToDelete);
   }
 
   @Transactional
-  public void updateBook(Long isbn, Book newBook) {
-    Optional<Book> bookToEdit = bookRepository.findBookByISBN(isbn);
-    if (bookToEdit.isPresent()) {
-      bookToEdit.get().setDescription(newBook.getDescription());
-      bookToEdit.get().setTitle(newBook.getTitle());
-      bookToEdit.get().setPublishers(newBook.getPublishers());
-      bookToEdit.get().setAuthor(newBook.getAuthor());
-      bookToEdit.get().setCategory(newBook.getCategory());
-    }
+  public BookResponse updateBook(Long isbn, Book newBook) {
+    Book bookToEdit = bookRepository.findBookByISBN(isbn);
+    BookResponse bookResponse = bookMapper.toBookResponse(bookToEdit);
+    bookResponse.setDescription(newBook.getDescription());
+    bookResponse.setTitle(newBook.getTitle());
+    bookResponse.setPublishers(newBook.getPublishers());
+    bookResponse.setAuthorId(newBook.getAuthor().getId());
+    bookResponse.setCategoryId(newBook.getCategory().getId());
+    bookResponse.setISBN(newBook.getISBN());
+    return null;
   }
 }

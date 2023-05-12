@@ -11,6 +11,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 public class BookRequest {
+  public UUID id;
   private long ISBN;
   private String title;
   private LocalDate publishedDate;

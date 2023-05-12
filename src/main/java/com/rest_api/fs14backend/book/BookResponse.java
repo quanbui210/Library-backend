@@ -9,6 +9,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Data
 public class BookResponse {
+  private UUID id;
   private UUID categoryId;
   private UUID authorId;
   private long ISBN;
@@ -18,7 +19,5 @@ public class BookResponse {
   private Book.Status status;
   private String publishers;
   private String authorName;
-  private LocalDate authorDob;
-  private String authorDescription;
   private String categoryName;
 }
