@@ -24,7 +24,7 @@ public class Book {
           strategy = GenerationType.SEQUENCE,
           generator = "book_sequence"
   )
-  private long id;
+  private Long id;
 
   @Column( unique = true)
   private long ISBN;
@@ -43,6 +43,9 @@ public class Book {
 
   @Column(nullable = true)
   private String publishers;
+
+  @Column(nullable = true)
+  private String imageURL;
 
   @ManyToOne(optional = true)
   @JoinColumn(name = "author_id")

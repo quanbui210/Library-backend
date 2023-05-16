@@ -3,6 +3,7 @@ package com.rest_api.fs14backend.book;
 import com.rest_api.fs14backend.author.AuthorService;
 import com.rest_api.fs14backend.category.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,7 +40,8 @@ public class BookController {
   }
 
   @PutMapping(value = "/{isbn}")
-  public void updateBook(@PathVariable Long isbn, @RequestBody Book book) {
-    bookService.updateBook(isbn, book);
+  public ResponseEntity<BookResponse> updateBook(@PathVariable("isbn") Long isbn, @RequestBody BookRequest bookRequest) {
+    BookResponse updatedBook = bookService.updateBook(isbn, bookRequest);
+    return ResponseEntity.ok(updatedBook);
   }
 }

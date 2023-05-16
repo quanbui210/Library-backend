@@ -28,7 +28,7 @@ public class Author {
   private String description;
 
   @OneToMany(mappedBy = "author")
-  @JsonIgnoreProperties("author")
+  @JsonIgnoreProperties({"category", "author"})
   private List<Book> books = new ArrayList<>();
 
   public Author(String name, String description) {

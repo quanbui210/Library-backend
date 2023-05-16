@@ -18,17 +18,22 @@ public class AuthorController {
   }
 
   @GetMapping
-  public List<Author> aetAuthors () {
+  public List<Author> getAuthors () {
     return authorService.getAllAuthors();
   }
 
   @GetMapping("/{id}")
-  public Author aetAuthorById(@PathVariable  UUID id) {
+  public Author getAuthorById(@PathVariable  UUID id) {
     return authorService.getAuthorById(id);
   }
 
   @PostMapping
   public void addAuthor(@RequestBody Author author) {
     authorService.addAuthor(author);
+  }
+
+  @DeleteMapping("/{id}")
+  public void deleteAuthor (@PathVariable UUID id) {
+    authorService.deleteAuthor(id);
   }
 }

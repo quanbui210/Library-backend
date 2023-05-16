@@ -56,15 +56,19 @@ public class BookService {
   }
 
   @Transactional
-  public BookResponse updateBook(Long isbn, Book newBook) {
+  public BookResponse updateBook(Long isbn, BookRequest bookRequest) {
+    Author author = authorRepository.findAuthorById(bookRequest.getAuthorId());
+    Category category = categoryRepository.findById(bookRequest.getCategoryId()).get();
     Book bookToEdit = bookRepository.findBookByISBN(isbn);
+    bookToEdit.setAuthor(author);
+    bookToEdit.setTitle(bookRequest.getTitle());
+    bookToEdit.setCategory(category);
+    bookToEdit.setDescription(bookRequest.getDescription());
+    bookToEdit.setISBN(bookRequest.getISBN());
+    bookToEdit.setPublishedDate(bookRequest.getPublishedDate());
+    bookToEdit.setStatus(bookRequest.getStatus());
+    bookToEdit.setPublishers(bookRequest.getPublishers());
     BookResponse bookResponse = bookMapper.toBookResponse(bookToEdit);
-    bookResponse.setDescription(newBook.getDescription());
-    bookResponse.setTitle(newBook.getTitle());
-    bookResponse.setPublishers(newBook.getPublishers());
-    bookResponse.setAuthorId(newBook.getAuthor().getId());
-    bookResponse.setCategoryId(newBook.getCategory().getId());
-    bookResponse.setISBN(newBook.getISBN());
-    return null;
+    return bookResponse;
   }
 }

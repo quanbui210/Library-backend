@@ -21,13 +21,19 @@ public class AuthorService {
   }
   public void addAuthor(Author newAuthor) {
     List<Author> authorList = authorRepository.findAll();
-    for (Author author : authorList) {
-      if (newAuthor.getName().equals(author.getName())) {
-        throw new IllegalStateException("Author " + newAuthor.getName() +  " already exist");
-      } else {
-        authorRepository.save(newAuthor);
-      }
-    }
+    authorRepository.save(newAuthor);
+  }
+  public void deleteAuthor (UUID id) {
+    List<Author> authorList = authorRepository.findAll();
+//    for (Author author : authorList) {
+//      if (author.getId().equals(id)) {
+//        authorRepository.deleteById(id);
+//        break;
+//      } else {
+//        throw new RuntimeException("Cannot find author with id: " + id);
+//      }
+//    }
+    authorRepository.deleteById(id);
   }
 
 }
