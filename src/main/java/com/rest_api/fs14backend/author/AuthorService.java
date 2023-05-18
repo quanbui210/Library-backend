@@ -2,6 +2,7 @@ package com.rest_api.fs14backend.author;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,16 +25,15 @@ public class AuthorService {
     authorRepository.save(newAuthor);
   }
   public void deleteAuthor (UUID id) {
-    List<Author> authorList = authorRepository.findAll();
-//    for (Author author : authorList) {
-//      if (author.getId().equals(id)) {
-//        authorRepository.deleteById(id);
-//        break;
-//      } else {
-//        throw new RuntimeException("Cannot find author with id: " + id);
-//      }
-//    }
     authorRepository.deleteById(id);
   }
 
+  @Transactional
+  public Author editAuthor (UUID id, Author editedAuthor) {
+    Author authorToEdit = authorRepository.findAuthorById(id);
+    authorToEdit.setDescription(editedAuthor.getDescription());
+    authorToEdit.setName(editedAuthor.getName());
+    authorToEdit.setImgUrl(editedAuthor.getImgUrl());
+    return authorToEdit;
+  }
 }

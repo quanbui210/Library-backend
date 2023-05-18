@@ -50,25 +50,30 @@ public class BookService {
     return bookResponse;
   }
 
-  public void deleteBook(Long isbn) {
-    Book bookToDelete = bookRepository.findBookByISBN(isbn);
-    bookRepository.delete(bookToDelete);
-  }
-
   @Transactional
   public BookResponse updateBook(Long isbn, BookRequest bookRequest) {
     Author author = authorRepository.findAuthorById(bookRequest.getAuthorId());
     Category category = categoryRepository.findById(bookRequest.getCategoryId()).get();
     Book bookToEdit = bookRepository.findBookByISBN(isbn);
-    bookToEdit.setAuthor(author);
-    bookToEdit.setTitle(bookRequest.getTitle());
-    bookToEdit.setCategory(category);
-    bookToEdit.setDescription(bookRequest.getDescription());
-    bookToEdit.setISBN(bookRequest.getISBN());
-    bookToEdit.setPublishedDate(bookRequest.getPublishedDate());
-    bookToEdit.setStatus(bookRequest.getStatus());
-    bookToEdit.setPublishers(bookRequest.getPublishers());
+    if (bookToEdit != null) {
+      bookToEdit.setAuthor(author);
+      bookToEdit.setTitle(bookRequest.getTitle());
+      bookToEdit.setCategory(category);
+      bookToEdit.setDescription(bookRequest.getDescription());
+      bookToEdit.setISBN(bookRequest.getISBN());
+      bookToEdit.setPublishedDate(bookRequest.getPublishedDate());
+      bookToEdit.setStatus(bookRequest.getStatus());
+      bookToEdit.setPublishers(bookRequest.getPublishers());
+    } else {
+      throw new RuntimeException("Book with " + isbn + " not found");
+    }
     BookResponse bookResponse = bookMapper.toBookResponse(bookToEdit);
     return bookResponse;
+  }
+
+
+  public void deleteBook(Long isbn) {
+    Book bookToDelete = bookRepository.findBookByISBN(isbn);
+    bookRepository.delete(bookToDelete);
   }
 }

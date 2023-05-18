@@ -79,10 +79,6 @@ public class Book {
     this.author = author;
 
   }
-  public Book (long ISBN, String title) {
-    this.ISBN = ISBN;
-    this.title = title;
-  }
 }
 
 

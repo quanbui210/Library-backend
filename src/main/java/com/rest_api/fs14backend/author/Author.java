@@ -26,6 +26,8 @@ public class Author {
 
   @Column(nullable = true)
   private String description;
+  @Column(nullable = true)
+  private String imgUrl;
 
   @OneToMany(mappedBy = "author")
   @JsonIgnoreProperties({"category", "author"})
