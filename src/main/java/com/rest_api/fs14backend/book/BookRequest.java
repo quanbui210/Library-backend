@@ -20,5 +20,6 @@ public class BookRequest {
   private String publishers;
   private UUID authorId;
   private UUID categoryId;
-
+  private String imageUrl;
+  private int quantity;
 }

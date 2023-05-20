@@ -40,6 +40,7 @@ public class BookService {
     Book book = bookMapper.toBookEntity(bookRequest);
     book.setCategory(category);
     book.setAuthor(author);
+    book.setImageUrl(bookRequest.getImageUrl());
     bookRepository.save(book);
     return bookMapper.toBookResponse(book);
   }
@@ -64,6 +65,8 @@ public class BookService {
       bookToEdit.setPublishedDate(bookRequest.getPublishedDate());
       bookToEdit.setStatus(bookRequest.getStatus());
       bookToEdit.setPublishers(bookRequest.getPublishers());
+      bookToEdit.setImageUrl(bookRequest.getImageUrl());
+      bookToEdit.setQuantity(bookRequest.getQuantity());
     } else {
       throw new RuntimeException("Book with " + isbn + " not found");
     }

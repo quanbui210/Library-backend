@@ -1,35 +1,36 @@
-//package com.rest_api.fs14backend.user;
-//
-//import com.fasterxml.jackson.annotation.JsonProperty;
-//import com.rest_api.fs14backend.book.Book;
-//import jakarta.persistence.*;
-//import lombok.Data;
-//import lombok.NoArgsConstructor;
-//import org.hibernate.annotations.UuidGenerator;
-//
-//import java.util.List;
-//import java.util.UUID;
-//
-//@Entity(name = "user")
-//@Table(name = "customer")
-//@Data
-//@NoArgsConstructor
-//public class User {
-//  @Id
-//  @GeneratedValue
-//  @UuidGenerator
-//  private UUID id;
-//
-//  @Column(unique = true)
-//  private String username;
-//
-//  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-//  private String password;
-//
-//  private List<Book> borrowedBooks;
-//
-//  public User(String username, String password){
-//    this.username = username;
-//    this.password = password;
-//  }
-//}
+package com.rest_api.fs14backend.user;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.rest_api.fs14backend.checkout.CheckoutResponse;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.UuidGenerator;
+
+import java.util.List;
+import java.util.UUID;
+
+@Entity(name = "user")
+@Table(name = "customer")
+@Data
+@NoArgsConstructor
+public class User {
+  @Id
+  @GeneratedValue
+  @UuidGenerator
+  private UUID id;
+
+  @Column(unique = true)
+  private String username;
+
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+  private String password;
+
+  @Column
+  private List<CheckoutResponse> checkoutList;
+
+  public User(String username, String password){
+    this.username = username;
+    this.password = password;
+  }
+}

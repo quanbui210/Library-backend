@@ -9,7 +9,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Data
 public class BookResponse {
-  private UUID id;
+  public UUID id;
   private UUID categoryId;
   private UUID authorId;
   private long ISBN;
@@ -20,4 +20,6 @@ public class BookResponse {
   private String publishers;
   private String authorName;
   private String categoryName;
+  private String imageUrl;
+  private int quantity;
 }

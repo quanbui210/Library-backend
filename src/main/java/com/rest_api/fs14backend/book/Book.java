@@ -5,8 +5,10 @@ import com.rest_api.fs14backend.category.Category;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Table(name = "book")
@@ -15,16 +17,8 @@ import java.time.LocalDate;
 public class Book {
   @Id
   @Column(name = "id")
-  @SequenceGenerator(
-          name = "book_sequence",
-          sequenceName = "book_sequence",
-          allocationSize = 1
-  )
-  @GeneratedValue(
-          strategy = GenerationType.SEQUENCE,
-          generator = "book_sequence"
-  )
-  private Long id;
+  @UuidGenerator
+  private UUID id;
 
   @Column( unique = true)
   private long ISBN;
@@ -45,11 +39,14 @@ public class Book {
   private String publishers;
 
   @Column(nullable = true)
-  private String imageURL;
+  private String imageUrl;
 
   @ManyToOne(optional = true)
   @JoinColumn(name = "author_id")
   private Author author;
+
+  @Column
+  private int quantity;
 
   enum Status {
     BORROWED,
@@ -67,7 +64,8 @@ public class Book {
               Status status,
               String publishers,
               Category category,
-              Author author
+              Author author,
+              String imageUrl
   ) {
     this.ISBN = ISBN;
     this.title = title;
@@ -77,7 +75,8 @@ public class Book {
     this.publishers = publishers;
     this.category = category;
     this.author = author;
-
+    this.imageUrl = imageUrl;
+    this.quantity = quantity;
   }
 }
 
