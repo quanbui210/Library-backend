@@ -24,22 +24,38 @@ public class CheckoutService {
   private UserRepository userRepository;
   @Autowired
   private CheckoutMapper checkoutMapper;
+  @Autowired
+  private CheckoutResponse checkoutResponse;
+
   public CheckoutResponse borrowOne(CheckoutRequest checkoutRequest) {
     Book book = bookRepository.findBookById(checkoutRequest.getBookId());
     User user = userRepository.findUserById(checkoutRequest.getUserId());
     Checkout checkout = checkoutMapper.toCheckOutEntity(checkoutRequest);
+    if (book.getQuantity() > 0) {
+      book.setQuantity(book.getQuantity() - 1);
+      checkout.setBook(book);
+      checkout.setUser(user);
+      checkout.setBorrowedDate(LocalDate.now());
+      checkoutResponse = checkoutMapper.toCheckoutResponse(checkout);
 
-    book.setQuantity(book.getQuantity() - 1);
-    checkout.setBook(book);
-    checkout.setUser(user);
-    checkout.setBorrowedDate(LocalDate.now());
-    CheckoutResponse checkoutResponse = checkoutMapper.toCheckoutResponse(checkout);
-
-    List<CheckoutResponse> checkoutList = user.getCheckoutList();
-    checkoutList.add(checkoutResponse);
-    user.setCheckoutList(checkoutList);
-
-    checkoutRepository.save(checkout);
+      List<Checkout> checkoutList = user.getCheckoutList();
+      checkoutList.add(checkout);
+      user.setCheckoutList(checkoutList);
+      checkoutRepository.save(checkout);
+    }
     return checkoutResponse;
   }
+//  public CheckoutResponse returnOne (CheckoutRequest checkoutRequest) {
+//    Book book = bookRepository.findBookById(checkoutRequest.getBookId());
+//    User user = userRepository.findUserById(checkoutRequest.getUserId());
+//    Checkout checkout = checkoutRepository.findCheckout(book, user);
+//
+//    checkout.setReturned(true);
+//    checkout.setReturnedDate(LocalDate.now());
+//    book.setQuantity(book.getQuantity() + 1);
+//    checkoutRepository.save(checkout);
+//    bookRepository.save(book);
+//
+//    return checkoutMapper.toCheckoutResponse(checkout);
+//  }
 }

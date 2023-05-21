@@ -1,7 +1,7 @@
 package com.rest_api.fs14backend.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.rest_api.fs14backend.checkout.CheckoutResponse;
+import com.rest_api.fs14backend.checkout.Checkout;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,7 +27,8 @@ public class User {
   private String password;
 
   @Column
-  private List<CheckoutResponse> checkoutList;
+  @OneToMany
+  private List<Checkout> checkoutList;
 
   public User(String username, String password){
     this.username = username;

@@ -2,12 +2,14 @@ package com.rest_api.fs14backend.checkout;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
 @NoArgsConstructor
+@Component
 public class CheckoutResponse {
   private UUID id;
   private UUID bookId;
