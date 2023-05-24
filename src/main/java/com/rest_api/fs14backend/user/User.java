@@ -32,14 +32,15 @@ public class User {
   private UserRole role;
 
   @Column
-  @OneToMany(fetch = FetchType.LAZY)
-  @JsonIgnoreProperties({"author", "category"})
+  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+  @JsonIgnoreProperties({"user"})
   private List<Checkout> checkoutList;
 
-  public User(String username, String password){
+  public User(String username, String password) {
     this.username = username;
     this.password = password;
   }
+
   public User(String username, String password, UserRole role) {
     this.username = username;
     this.password = password;

@@ -3,8 +3,9 @@ package com.rest_api.fs14backend.author;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.rest_api.fs14backend.book.Book;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.ArrayList;
@@ -13,7 +14,8 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "author")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class Author {
   @Id

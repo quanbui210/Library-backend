@@ -26,9 +26,11 @@ public class UserService {
   private PasswordEncoder passwordEncoder;
   @Autowired
   private UserRepository userRepository;
+
   public List<User> findAll() {
     return userRepository.findAll();
   }
+
   public User signup(User user) {
     User existingUser = userRepository.findByUsername(user.getUsername());
     if (existingUser != null) {
@@ -40,17 +42,31 @@ public class UserService {
     return newUser;
   }
 
-  public Map<String, String> login(AuthRequest authRequest) {
-    Map<String, String> token = new HashMap<>();
+  public Map<String, Object> login(AuthRequest authRequest) {
+    Map<String, Object> response = new HashMap<>();
+
     authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(
                     authRequest.getUsername(),
                     authRequest.getPassword()
             )
     );
-    User user = userRepository.findByUsername(authRequest.getUsername());
-    token.put("token", jwtUtils.generateToken(user));
 
-    return token;
+    User user = userRepository.findByUsername(authRequest.getUsername());
+
+    // Generate the token
+    String token = jwtUtils.generateToken(user);
+
+    // Create a map to hold the token and user data
+    Map<String, Object> userData = new HashMap<>();
+    userData.put("id", user.getId());
+    userData.put("username", user.getUsername());
+    // Add any other user fields you want to include in the response
+
+    // Put the token and user data in the response map
+    response.put("token", token);
+    response.put("userData", userData);
+
+    return response;
   }
 }

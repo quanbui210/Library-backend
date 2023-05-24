@@ -21,13 +21,14 @@ public class UserController {
     System.out.println("we are inside users");
     return userService.findAll();
   }
+
   @PostMapping("/signup")
   public User signup(@RequestBody User user) {
     return userService.signup(user);
   }
 
   @PostMapping("/signin")
-  public Map<String, String> login(@RequestBody AuthRequest authRequest) {
+  public Map<String, Object> login(@RequestBody AuthRequest authRequest) {
     return userService.login(authRequest);
   }
 }

@@ -1,5 +1,6 @@
 package com.rest_api.fs14backend.checkout;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.rest_api.fs14backend.book.Book;
 import com.rest_api.fs14backend.user.User;
 import jakarta.persistence.*;
@@ -24,6 +25,7 @@ public class Checkout {
 
   @ManyToOne
   @JoinColumn(name = "book_id")
+  @JsonIgnoreProperties
   private Book book;
   @ManyToOne
   @JoinColumn(name = "user_id")
