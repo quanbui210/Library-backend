@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+
+//helper function
 @Service
 public class JwtUtils {
   final String secret = "ThisIsAMuchLongerPasswordOhBoysDoINeedMoreCharacters";
@@ -33,7 +35,6 @@ public class JwtUtils {
       .setIssuedAt(new Date(System.currentTimeMillis()))
       .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
       .signWith(SignatureAlgorithm.HS256, secret).compact();
-
   }
 
   public String extractUsername(String token) {

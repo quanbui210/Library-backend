@@ -11,17 +11,15 @@ import java.util.UUID;
 public class AuthorService {
   @Autowired
   private AuthorRepository authorRepository;
-//  private final AuthorMapper authorMapper;
+
   public List<Author> getAllAuthors() {
     List<Author> authors = authorRepository.findAll();
-//  return authorMapper.toAuthorDTOList(authors);
     return authors;
   }
   public Author getAuthorById (UUID id) {
     return authorRepository.findAuthorById(id);
   }
   public void addAuthor(Author newAuthor) {
-    List<Author> authorList = authorRepository.findAll();
     authorRepository.save(newAuthor);
   }
   public void deleteAuthor (UUID id) {

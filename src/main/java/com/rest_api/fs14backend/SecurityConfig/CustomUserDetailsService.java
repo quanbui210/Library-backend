@@ -1,4 +1,3 @@
-/*
 package com.rest_api.fs14backend.SecurityConfig;
 
 import com.rest_api.fs14backend.user.User;
@@ -18,13 +17,10 @@ public class CustomUserDetailsService implements UserDetailsService {
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     User user = userRepository.findByUsername(username);
-
-
+    System.out.println(user);
+    System.out.println(username);
     return new org.springframework.security.core.userdetails.User(
-      user.getUsername(),
-      user.getPassword(),
-      new ArrayList<>()
+      user.getUsername(), user.getPassword(),new ArrayList<>()
     );
   }
 }
-*/

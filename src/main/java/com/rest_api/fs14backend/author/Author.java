@@ -33,9 +33,10 @@ public class Author {
   @JsonIgnoreProperties({"category", "author"})
   private List<Book> books = new ArrayList<>();
 
-  public Author(String name, String description) {
+  public Author(String name, String description, String imgUrl) {
     this.name = name;
     this.description = description;
+    this.imgUrl = imgUrl;
   }
 
 }

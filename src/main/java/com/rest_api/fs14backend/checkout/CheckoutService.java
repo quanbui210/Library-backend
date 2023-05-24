@@ -45,17 +45,16 @@ public class CheckoutService {
     }
     return checkoutResponse;
   }
-//  public CheckoutResponse returnOne (CheckoutRequest checkoutRequest) {
-//    Book book = bookRepository.findBookById(checkoutRequest.getBookId());
-//    User user = userRepository.findUserById(checkoutRequest.getUserId());
-//    Checkout checkout = checkoutRepository.findCheckout(book, user);
-//
-//    checkout.setReturned(true);
-//    checkout.setReturnedDate(LocalDate.now());
-//    book.setQuantity(book.getQuantity() + 1);
-//    checkoutRepository.save(checkout);
-//    bookRepository.save(book);
-//
-//    return checkoutMapper.toCheckoutResponse(checkout);
-//  }
+  public CheckoutResponse returnOne (CheckoutResponse checkoutResponse) {
+    Checkout checkout = checkoutRepository.findCheckoutById(checkoutResponse.getId());
+    Book book = checkout.getBook();
+    User user = checkout.getUser();
+    List<Checkout> checkoutList = user.getCheckoutList();
+    checkoutList.remove(checkout);
+    checkout.setReturned(true);
+    checkout.setReturnedDate(LocalDate.now());
+    book.setQuantity(book.getQuantity() + 1);
+
+    return checkoutMapper.toCheckoutResponse(checkout);
+  }
 }
