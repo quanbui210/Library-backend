@@ -1,6 +1,5 @@
 package com.rest_api.fs14backend.user;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.rest_api.fs14backend.checkout.Checkout;
 import jakarta.persistence.*;
@@ -33,7 +32,6 @@ public class User {
 
   @Column
   @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-  @JsonIgnoreProperties({"user"})
   private List<Checkout> checkoutList;
 
   public User(String username, String password) {

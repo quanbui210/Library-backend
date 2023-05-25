@@ -25,7 +25,7 @@ public class Checkout {
 
   @ManyToOne
   @JoinColumn(name = "book_id")
-  @JsonIgnoreProperties
+  @JsonIgnoreProperties({"author", "category"})
   private Book book;
   @ManyToOne
   @JoinColumn(name = "user_id")
