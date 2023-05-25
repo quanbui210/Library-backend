@@ -3,8 +3,9 @@ package com.rest_api.fs14backend.book;
 import com.rest_api.fs14backend.author.Author;
 import com.rest_api.fs14backend.category.Category;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDate;
@@ -12,7 +13,8 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "book")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class Book {
   @Id
@@ -20,7 +22,7 @@ public class Book {
   @UuidGenerator
   private UUID id;
 
-  @Column( unique = true)
+  @Column(unique = true)
   private long ISBN;
 
   @Column(nullable = true)
@@ -47,13 +49,7 @@ public class Book {
 
   @Column
   private int quantity;
-
-  enum Status {
-    BORROWED,
-    AVAILABLE
-  }
-
-  @ManyToOne( optional = true)
+  @ManyToOne(optional = true)
   @JoinColumn(name = "category_id")
   private Category category;
 
@@ -77,6 +73,11 @@ public class Book {
     this.author = author;
     this.imageUrl = imageUrl;
     this.quantity = quantity;
+  }
+
+  enum Status {
+    BORROWED,
+    AVAILABLE
   }
 }
 

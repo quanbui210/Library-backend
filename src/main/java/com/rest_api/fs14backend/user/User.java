@@ -1,10 +1,12 @@
 package com.rest_api.fs14backend.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.rest_api.fs14backend.checkout.Checkout;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.List;
@@ -12,7 +14,8 @@ import java.util.UUID;
 
 @Entity(name = "user")
 @Table(name = "customer")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class User {
   @Id
@@ -30,8 +33,8 @@ public class User {
   @Enumerated(EnumType.STRING)
   private UserRole role;
 
-  @Column
-  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+  @JsonIgnoreProperties({"user", "book"})
   private List<Checkout> checkoutList;
 
   public User(String username, String password) {

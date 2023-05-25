@@ -1,5 +1,6 @@
 package com.rest_api.fs14backend.checkout;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -9,6 +10,7 @@ import java.util.UUID;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Component
 public class CheckoutResponse {
   private UUID id;
@@ -19,4 +21,5 @@ public class CheckoutResponse {
   private LocalDate borrowedDate;
   private LocalDate returnedDate;
   private boolean isReturned;
+
 }

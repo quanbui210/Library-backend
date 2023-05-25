@@ -4,8 +4,9 @@ package com.rest_api.fs14backend.category;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.rest_api.fs14backend.book.Book;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.List;
@@ -13,7 +14,8 @@ import java.util.UUID;
 
 @Entity(name = "category")
 @Table(name = "category")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class Category {
   @Id

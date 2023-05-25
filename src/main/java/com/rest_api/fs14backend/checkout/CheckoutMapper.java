@@ -8,15 +8,17 @@ import org.springframework.stereotype.Component;
 @Component
 public interface CheckoutMapper {
 
-  @Mapping(source = "checkout.book.id", target = "bookId")
-  @Mapping(source = "checkout.user.id", target = "userId")
-  @Mapping(source = "checkout.book.title", target = "bookName")
-  @Mapping(source = "checkout.user.username", target = "username")
-  @Mapping(target = "id", ignore = true)
+
+  @Mapping(source = "id", target = "bookId")
+  @Mapping(source = "user.id", target = "userId")
+  @Mapping(source = "book.title", target = "bookName")
+  @Mapping(source = "user.username", target = "username")
+  CheckoutResponse toCheckoutResponse(Checkout checkout);
+
+  @Mapping(source = "bookId", target = "book.id")
+  @Mapping(source = "userId", target = "user.id")
   @Mapping(target = "borrowedDate", ignore = true)
   @Mapping(target = "returnedDate", ignore = true)
   @Mapping(target = "returned", ignore = true)
-  CheckoutResponse toCheckoutResponse(Checkout checkout);
-
   Checkout toCheckOutEntity(CheckoutRequest checkoutRequest);
 }

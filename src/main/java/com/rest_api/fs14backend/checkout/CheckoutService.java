@@ -29,22 +29,16 @@ public class CheckoutService {
 
   public CheckoutResponse borrowOne(CheckoutRequest checkoutRequest) {
     Book book = bookRepository.findBookById(checkoutRequest.getBookId());
-    System.out.println(book);
     User user = userRepository.findUserById(checkoutRequest.getUserId());
-    System.out.println(user);
     Checkout checkout = checkoutMapper.toCheckOutEntity(checkoutRequest);
-    if (book.getQuantity() > 0) {
-      book.setQuantity(book.getQuantity() - 1);
-      checkout.setBook(book);
-      checkout.setUser(user);
-      checkout.setBorrowedDate(LocalDate.now());
-      checkoutResponse = checkoutMapper.toCheckoutResponse(checkout);
-
-      List<Checkout> checkoutList = user.getCheckoutList();
-      checkoutList.add(checkout);
-      user.setCheckoutList(checkoutList);
-      checkoutRepository.save(checkout);
-    }
+    checkout.setBook(book);
+    checkout.setUser(user);
+    checkout.setBorrowedDate(LocalDate.now());
+    checkoutResponse = checkoutMapper.toCheckoutResponse(checkout);
+    List<Checkout> checkoutList = user.getCheckoutList();
+    checkoutList.add(checkout);
+    user.setCheckoutList(checkoutList);
+    checkoutRepository.save(checkout);
     return checkoutResponse;
   }
 
@@ -57,7 +51,6 @@ public class CheckoutService {
     checkout.setReturned(true);
     checkout.setReturnedDate(LocalDate.now());
     book.setQuantity(book.getQuantity() + 1);
-
     return checkoutMapper.toCheckoutResponse(checkout);
   }
 }
