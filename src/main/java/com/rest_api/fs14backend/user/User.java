@@ -33,7 +33,7 @@ public class User {
   @Enumerated(EnumType.STRING)
   private UserRole role;
 
-  @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
   @JsonIgnoreProperties({"user", "book"})
   private List<Checkout> checkoutList;
 
@@ -43,6 +43,12 @@ public class User {
   }
 
   public User(String username, String password, UserRole role) {
+    this.username = username;
+    this.password = password;
+    this.role = role;
+  }
+
+  public User(String username, String password, UserRole role, List<Checkout> checkoutList) {
     this.username = username;
     this.password = password;
     this.role = role;

@@ -75,7 +75,7 @@ public class Book {
     this.quantity = quantity;
   }
 
-  enum Status {
+  public enum Status {
     BORROWED,
     AVAILABLE
   }

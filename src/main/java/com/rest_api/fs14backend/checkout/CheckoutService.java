@@ -26,31 +26,44 @@ public class CheckoutService {
   private CheckoutMapper checkoutMapper;
   @Autowired
   private CheckoutResponse checkoutResponse;
+//  @Autowired
+//  private ReturnRequest returnRequest;
 
   public CheckoutResponse borrowOne(CheckoutRequest checkoutRequest) {
     Book book = bookRepository.findBookById(checkoutRequest.getBookId());
     User user = userRepository.findUserById(checkoutRequest.getUserId());
     Checkout checkout = checkoutMapper.toCheckOutEntity(checkoutRequest);
+
     checkout.setBook(book);
     checkout.setUser(user);
     checkout.setBorrowedDate(LocalDate.now());
+
+    book.setStatus(Book.Status.BORROWED);
+    bookRepository.save(book);
+
+    checkoutRepository.save(checkout);
     checkoutResponse = checkoutMapper.toCheckoutResponse(checkout);
+
     List<Checkout> checkoutList = user.getCheckoutList();
     checkoutList.add(checkout);
     user.setCheckoutList(checkoutList);
-    checkoutRepository.save(checkout);
+
     return checkoutResponse;
   }
 
-  public CheckoutResponse returnOne(CheckoutResponse checkoutResponse) {
-    Checkout checkout = checkoutRepository.findCheckoutById(checkoutResponse.getId());
+  public CheckoutResponse returnOne(ReturnRequest returnRequest) {
+    Checkout checkout = checkoutRepository.findCheckoutById(returnRequest.getCheckoutId());
     Book book = checkout.getBook();
-    User user = checkout.getUser();
-    List<Checkout> checkoutList = user.getCheckoutList();
-    checkoutList.remove(checkout);
+    book.setStatus(Book.Status.AVAILABLE);
     checkout.setReturned(true);
     checkout.setReturnedDate(LocalDate.now());
-    book.setQuantity(book.getQuantity() + 1);
+    checkoutRepository.save(checkout);
     return checkoutMapper.toCheckoutResponse(checkout);
+  }
+
+  public List<CheckoutResponse> getCheckouts() {
+    List<Checkout> checkoutList = checkoutRepository.findAll();
+    List<CheckoutResponse> checkoutResponseList = checkoutMapper.toListCheckoutResponse(checkoutList);
+    return checkoutResponseList;
   }
 }
