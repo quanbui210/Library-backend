@@ -61,9 +61,7 @@ public class UserService {
     Map<String, Object> userData = new HashMap<>();
     userData.put("id", user.getId());
     userData.put("username", user.getUsername());
-    // Add any other user fields you want to include in the response
 
-    // Put the token and user data in the response map
     response.put("token", token);
     response.put("userData", userData);
 
