@@ -1,10 +1,10 @@
 services:
   db:
-    container_name: librarydb_b43b
+    container_name: postgres
     image: postgres
     environment:
-      POSTGRES_USER: quanbui
-      POSTGRES_PASSWORD: wjL3pusDMNnh1KXq2HchAUC9wBqX8Wmb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Buidamquan1
       PGDATA: /data/postgres
     volumes:
       - db:/data/postgres
