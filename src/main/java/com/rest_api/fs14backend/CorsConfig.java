@@ -17,6 +17,7 @@ public class CorsConfig {
                 .allowedOrigins(
                         "http://localhost:5173",
                         "https://library-quanbui.netlify.app/",
+                        "https://lib-backend-e0qi.onrender.com/",
                         "https://library-management-quanbui.vercel.app",
                         "https://library-backend-tije.onrender.com")
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
