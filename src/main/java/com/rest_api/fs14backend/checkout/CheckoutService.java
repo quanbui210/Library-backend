@@ -26,8 +26,7 @@ public class CheckoutService {
   private CheckoutMapper checkoutMapper;
   @Autowired
   private CheckoutResponse checkoutResponse;
-//  @Autowired
-//  private ReturnRequest returnRequest;
+
 
   public CheckoutResponse borrowOne(CheckoutRequest checkoutRequest) {
     Book book = bookRepository.findBookById(checkoutRequest.getBookId());

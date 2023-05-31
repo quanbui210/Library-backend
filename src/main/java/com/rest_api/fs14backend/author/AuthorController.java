@@ -11,19 +11,15 @@ import java.util.UUID;
 @RequestMapping("api/v1/authors")
 public class AuthorController {
   @Autowired
-  private final AuthorService authorService;
-
-  public AuthorController(AuthorService authorService) {
-    this.authorService = authorService;
-  }
+  private AuthorService authorService;
 
   @GetMapping
-  public List<Author> getAuthors () {
+  public List<Author> getAuthors() {
     return authorService.getAllAuthors();
   }
 
   @GetMapping("/{id}")
-  public Author getAuthorById(@PathVariable  UUID id) {
+  public Author getAuthorById(@PathVariable UUID id) {
     return authorService.getAuthorById(id);
   }
 
@@ -38,7 +34,7 @@ public class AuthorController {
   }
 
   @DeleteMapping("/{id}")
-  public void deleteAuthor (@PathVariable UUID id) {
+  public void deleteAuthor(@PathVariable UUID id) {
     authorService.deleteAuthor(id);
   }
 }
